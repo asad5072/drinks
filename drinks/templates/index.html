@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <section id="headerview" v-if="products">
+        <div v-for="product in products.drinks">
+            <h3>Product Name: [[product.name]]</h3>
+            <p>Product Description: [[product.description]]</p>
+            <p>Product Price: [[product.price]]</p>
+            <p>Product Price: [[product.short_description]]</p>
+        </div>
+        <!-- [[products.drinks]] -->
+    </section>
+</body>
+</html>
+<script>
+    var homeview = new Vue({
+        el: '#headerview',
+        delimiters: ['[[', ']]'] ,
+        data: {
+            products: null,
+        },
+        mounted: function(){
+            var vm = this; 
+            axios.get('/drinks')
+            .then(function(response){
+                console.log(response.data)
+                vm.products =response.data;
+            });
+        }
+    })
+</script>
